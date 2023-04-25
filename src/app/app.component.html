@@ -1,0 +1,283 @@
+
+<div class="container">
+  <div class="alert alert-cool">
+<div class="form">
+  <h2 id="registration">Student Registration Form</h2><br/>
+  <form (ngSubmit)="onSubmit()" #myForm="ngForm"
+  novalidate>
+
+
+  <div class="row gutters">
+
+   
+    <div ngModelGroup="personDetails" #personalDetail="ngModelGroup">
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" placeholder="Your name.."
+        name="firstname" minlength="3" maxlength="10" ngModel required #fname="ngModel">
+        
+        <span class="text-danger">
+        <div *ngIf="fname.touched || myForm.submitted">
+          <p *ngIf="fname.errors?.['required']">First Name is Required!!!</p>
+          <p *ngIf="fname.errors?.['minlength']">First Name minimum 3 characters are required!!!</p>
+          <p *ngIf="fname.errors?.['maxlength']">First Name max length is 10!!!</p>
+        </div>
+        </span>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" placeholder="Your last name.."
+        name="lastname" minlength="3" maxlength="10" ngModel required #lname="ngModel">
+
+        <span class="text-danger">
+          <div *ngIf="lname.touched || myForm.submitted">
+            <p *ngIf="lname.errors?.['required']">Last Name is Required!!!</p>
+            <p *ngIf="lname.errors?.['minlength']">Last Name minimum 3 characters are required!!!</p>
+            <p *ngIf="lname.errors?.['maxlength']">Last Name max length is 10!!!</p>
+          </div>
+          </span>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Your last email.."
+        name="email_add" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  ngModel required #email="ngModel">
+        <div *ngIf="email.touched">
+          <span class="text-danger">
+          <div *ngIf="myForm.submitted || email.errors"> 
+            <p *ngIf="email.errors?.['required']">Email is a required field!</p>
+            <p *ngIf="email.errors?.['pattern']">This is not a valid Email!!!</p>
+          </div>
+          </span>
+          
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <label>Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="pwd"
+            ngModel
+            required
+            minlength="6"
+            maxlength="12"
+            #password="ngModel"
+            placeholder="Your password is.."
+          
+          />
+          <div *ngIf="myForm.submitted || password.touched" class="invalid-feedback">
+            <span class="text-danger">
+            <p *ngIf="password.errors?.['required']">Password is required</p>
+            <p *ngIf="password.errors?.['minlength']">
+              Password must be at least 6 characters
+            </p>
+            <p *ngIf="password.errors?.['maxlength']">
+              password must not exceed 12 characters
+            </p>
+          
+          </span>
+          </div>
+
+          <div class="custom-control custom-checkbox text-left">
+            <input type="checkbox" class="custom-control-input" >
+            <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+          </div>
+        
+      </div>
+    
+
+     
+
+        
+      
+
+
+      
+
+
+        
+    
+     
+
+     
+
+    
+      
+        
+       
+
+        
+    
+
+      
+
+        
+          
+        
+    
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          class="form-control"
+          ngValidateEqual="pwd"
+          name="confirmPassword"
+          ngModel
+          required
+          #cpwd="ngModel"
+    
+        />
+        <div *ngIf="(cpwd.dirty || cpwd.touched) || cpwd.invalid">
+          <span class="text-danger">
+          <p class="warning-text" *ngIf="cpwd.hasError('notEqual') && password.valid">
+            Passwords Don't Match
+          </p>
+        </span>
+
+          <span class="text-danger">
+            <p *ngIf="cpwd.errors?.['required']">
+              Confirm Password is required
+            </p>
+            
+          </span>
+      </div>
+         
+
+            
+      </div>
+  
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <label for="phoneNo">Phone Number</label>
+        <input type="text" id="phoneNo" placeholder="Your Phone Number is.."
+        name="phonenumber" pattern="[0-9 ]{10}" ngModel required #phoneNo="ngModel">
+
+        <span class="text-danger"
+        *ngIf="(phoneNo.touched) && phoneNo.errors?.['required']">
+         Phone Number is required
+        </span>
+        <span class="text-danger" 
+        *ngIf="phoneNo.errors?.['pattern']">
+        Enter a valid phone Number
+        </span>
+        <br/>
+        
+      </div>
+
+    </div>
+
+          
+        
+        
+        
+       
+
+        
+       
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <div>
+          <small *ngIf="personalDetail.invalid && personalDetail.touched">Some of the required fields does not have valid value.</small>
+        </div>
+        <button (click)="setDefaultValues()">Set Default Values</button>
+      
+
+      </div>
+
+       
+      </div>
+      <br/>
+      <div class="row gutters">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"><label for="date">DateOfBirth</label>
+          <input type="date" id="date" placeholder="Your dateofbirth is.."
+            name="dob" ngModel #date="ngModel"></div>
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+          <label for="country">Country</label>
+      <select id="country" name="country" [ngModel]="defaultCountry">
+        <option value="srilanka">SriLanka</option>
+        <option value="australia">Australia</option>
+        <option value="canada">Canada</option>
+        <option value="usa">USA</option>
+        <option value="india">India</option>
+        <option value="uk">UK</option>
+      </select>
+        </div>
+        
+
+      </div> 
+      
+
+        <label mdbLabel class="form-label" for="add">Address</label>
+        <textarea mdbInput class="form-control" id="add" name="address" ngModel #add="ngModel" rows="4"></textarea>
+      
+       
+
+      
+      
+
+     
+     
+        
+    
+      
+      <br>
+
+      <label for="gender">Gender:</label>
+      <span *ngFor="let gen of gender">
+        <input type="radio" id="{{gen.id}}" value="{{gen.value}}" name="gender" [ngModel]="defaultGender">
+        <label for="male">{{gen.value}}</label>
+      </span>
+      <br><br>
+      <label>Hobbies <i>(Optional)</i></label>
+      <div class="form-inline">
+          <label><input type="checkbox" value="sports" name="hobbies" ngModel> Sports</label>
+          <label><input type="checkbox" value="movies" name="hobbies" ngModel> Movies</label>
+          <label><input type="checkbox" value="music" name="hobbies" ngModel> Music</label>
+      </div>
+
+      
+
+      
+
+     
+      <input type="submit" [disabled]="!myForm.valid" value="Submit" id="btn"  class="btn btn-success"><!--[disabled]="!myForm.valid"-->
+      
+      <div class="row"  *ngIf="showMsg">
+        <div class="col-xs-12">
+          <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            
+            <hr>
+            <p>Aww yeah, you registered successfully</p>
+            
+          </div>
+        </div>
+      </div>
+      
+
+  
+    </form>
+  </div>
+</div>
+
+<div class="form-data">
+  <h3>Form Data</h3>
+  <p>First Name: <b>{{firstname}}</b></p>
+  <p>Last Name: <b>{{lastname}}</b></p>
+  <p>Email: <b>{{email_add}}</b></p>
+  <p>password: <b>{{pwd}}</b></p>
+  <p>PhoneNo: <b>{{phonenumber}}</b> </p>
+  <p>DateOfBirth: <b>{{dob}}</b></p>
+  <p>Address: <b>{{address}}</b></p>
+  <p>Country: <b>{{country}}</b></p>
+  <p>Gender: <b>{{gen}}</b></p>
+</div>
+
+</div>
